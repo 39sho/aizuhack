@@ -3,6 +3,7 @@ import express, { response } from 'express';
 import { WebhookEvent, middleware } from '@line/bot-sdk';
 
 import webhook from './webhook';
+import getMenu from './getMenu';
 
 const {
     CHANNEL_ACCESS_TOKEN,
@@ -19,7 +20,7 @@ const app = express();
 app.post('/webhook', middleware(config), async (req, res) => {
     const events: WebhookEvent[] = req.body.events;
 
-    Promise.all(events.map(async (event: WebhookEvent) => {
+    await Promise.all(events.map(async (event: WebhookEvent) => {
         console.log(event);
 
         webhook(event);

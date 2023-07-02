@@ -19,7 +19,7 @@ export default async (event: WebhookEvent) => {
         if (event.message.type === 'text') {
             const response: TextMessage = {
                 type: 'text',
-                text: text(event.message.text),
+                text: await text(event.source.userId, event.message.text),
             };
 
             client.replyMessage(event.replyToken, response);
